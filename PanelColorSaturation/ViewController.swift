@@ -20,20 +20,22 @@ class ViewController: UIViewController {
     @IBOutlet var colorGreenSlider: UISlider!
     @IBOutlet var colorBlueSlider: UISlider!
     
+    private let colorAlfa:CGFloat = 1.0
+    private var colorRed:CGFloat = 0.0
+    private var colorGreen:CGFloat = 0.0
+    private var colorBlue:CGFloat = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         view.backgroundColor = .darkGray
         
         nameColorRed.textColor = .white
         nameColorGreen.textColor = .white
         nameColorBlue.textColor = .white
-        
         numberRedLabel.textColor = .white
         numberGreenLabel.textColor = .white
         numberBlueLabel.textColor = .white
-        
         
         colorRedSlider.minimumTrackTintColor = .red
         colorGreenSlider.minimumTrackTintColor = .green
@@ -62,32 +64,28 @@ class ViewController: UIViewController {
     
     override func viewWillLayoutSubviews() {
         panelColorView.layer.cornerRadius = panelColorView.frame.width / 10
+        drawColorPanel()
     }
 
     @IBAction func colorRedSliderAction(_ sender: Any) {
-        numberRedLabel.text = String(colorRedSlider.value)
-        let colorRed = CGFloat(colorRedSlider.value)
-        let colorGreen = CGFloat(colorGreenSlider.value)
-        let colorBlue = CGFloat(colorBlueSlider.value)
-        let colorAlfa = CGFloat(1.0)
-        panelColorView.backgroundColor = UIColor(red: colorRed, green: colorGreen, blue: colorBlue, alpha: colorAlfa)
+        numberRedLabel.text = String(round(colorRedSlider.value * 100) / 100)
+        drawColorPanel()
     }
     
     @IBAction func colorGreenSliderAction(_ sender: Any) {
-        numberGreenLabel.text = String(colorGreenSlider.value)
-        let colorRed = CGFloat(colorRedSlider.value)
-        let colorGreen = CGFloat(colorGreenSlider.value)
-        let colorBlue = CGFloat(colorBlueSlider.value)
-        let colorAlfa = CGFloat(1.0)
-        panelColorView.backgroundColor = UIColor(red: colorRed, green: colorGreen, blue: colorBlue, alpha: colorAlfa)
+        numberGreenLabel.text = String(round(colorGreenSlider.value * 100) / 100)
+        drawColorPanel()
     }
     
     @IBAction func colorBlueAction(_ sender: Any) {
-        numberBlueLabel.text = String(colorBlueSlider.value)
-        let colorRed = CGFloat(colorRedSlider.value)
-        let colorGreen = CGFloat(colorGreenSlider.value)
-        let colorBlue = CGFloat(colorBlueSlider.value)
-        let colorAlfa = CGFloat(1.0)
+        numberBlueLabel.text = String(round(colorBlueSlider.value * 100) / 100)
+        drawColorPanel()
+    }
+    
+    private func drawColorPanel () {
+        colorRed = CGFloat(colorRedSlider.value)
+        colorGreen = CGFloat(colorGreenSlider.value)
+        colorBlue = CGFloat(colorBlueSlider.value)
         panelColorView.backgroundColor = UIColor(red: colorRed, green: colorGreen, blue: colorBlue, alpha: colorAlfa)
     }
 }

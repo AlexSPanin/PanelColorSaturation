@@ -10,12 +10,15 @@ import UIKit
 class ViewController: UIViewController {
 
     @IBOutlet var panelColorView: UIView!
+    
     @IBOutlet var nameColorRed: UILabel!
     @IBOutlet var nameColorGreen: UILabel!
     @IBOutlet var nameColorBlue: UILabel!
+    
     @IBOutlet var numberRedLabel: UILabel!
     @IBOutlet var numberGreenLabel: UILabel!
     @IBOutlet var numberBlueLabel: UILabel!
+    
     @IBOutlet var colorRedSlider: UISlider!
     @IBOutlet var colorGreenSlider: UISlider!
     @IBOutlet var colorBlueSlider: UISlider!
@@ -28,30 +31,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .darkGray
-        
-        nameColorRed.textColor = .white
-        nameColorGreen.textColor = .white
-        nameColorBlue.textColor = .white
-        numberRedLabel.textColor = .white
-        numberGreenLabel.textColor = .white
-        numberBlueLabel.textColor = .white
+        drawColorPanel()
         
         colorRedSlider.minimumTrackTintColor = .red
         colorGreenSlider.minimumTrackTintColor = .green
         colorBlueSlider.minimumTrackTintColor = .blue
-        
-        colorRedSlider.minimumValue = 0.0
-        colorGreenSlider.minimumValue = 0.0
-        colorBlueSlider.minimumValue = 0.0
-        
-        colorRedSlider.maximumValue = 1.0
-        colorGreenSlider.maximumValue = 1.0
-        colorBlueSlider.maximumValue = 1.0
-        
-        colorRedSlider.value = 0.5
-        colorGreenSlider.value = 0.5
-        colorBlueSlider.value = 0.5
         
         nameColorRed.text = "Red"
         nameColorGreen.text = "Green"

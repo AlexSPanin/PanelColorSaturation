@@ -11,7 +11,7 @@ class ViewController: UIViewController {
 
     @IBOutlet var panelColorView: UIView!
     
-    @IBOutlet var nameColorRed: UILabel!
+    @IBOutlet var nameColorRed: UILabel! // что  можно нужно переопределять в Сториборде
     @IBOutlet var nameColorGreen: UILabel!
     @IBOutlet var nameColorBlue: UILabel!
     
@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     @IBOutlet var colorGreenSlider: UISlider!
     @IBOutlet var colorBlueSlider: UISlider!
     
-    private let colorAlfa:CGFloat = 1.0
+    private let colorAlfa:CGFloat = 1.0 // можно не созадавть тк везде 1
     private var colorRed:CGFloat = 0.0
     private var colorGreen:CGFloat = 0.0
     private var colorBlue:CGFloat = 0.0
@@ -33,21 +33,13 @@ class ViewController: UIViewController {
         
         drawColorPanel()
         
-        colorRedSlider.minimumTrackTintColor = .red
-        colorGreenSlider.minimumTrackTintColor = .green
-        colorBlueSlider.minimumTrackTintColor = .blue
-        
-        nameColorRed.text = "Red"
-        nameColorGreen.text = "Green"
-        nameColorBlue.text = "Blue"
-        
         numberRedLabel.text = String(colorRedSlider.value)
         numberGreenLabel.text = String(colorGreenSlider.value)
         numberBlueLabel.text = String(colorBlueSlider.value)
     }
     
     override func viewWillLayoutSubviews() {
-        panelColorView.layer.cornerRadius = panelColorView.frame.width / 10
+        panelColorView.layer.cornerRadius = panelColorView.frame.width / 10 // можно округлить форматом "%.2f" и объеденитьв двумя другими в отдельный метод
         drawColorPanel()
     }
 

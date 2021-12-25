@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E2AD9483277734F4009B8545 /* ColorRGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2AD9482277734F4009B8545 /* ColorRGB.swift */; };
 		E2D6FC332763508E00E2DD9B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D6FC322763508E00E2DD9B /* AppDelegate.swift */; };
 		E2D6FC352763508E00E2DD9B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D6FC342763508E00E2DD9B /* SceneDelegate.swift */; };
 		E2D6FC372763508E00E2DD9B /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2D6FC362763508E00E2DD9B /* SettingViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E2AD9482277734F4009B8545 /* ColorRGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRGB.swift; sourceTree = "<group>"; };
 		E2D6FC2F2763508E00E2DD9B /* PanelColorSaturation.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PanelColorSaturation.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2D6FC322763508E00E2DD9B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E2D6FC342763508E00E2DD9B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			children = (
 				E2D97753277625D000B9381F /* StartViewController.swift */,
 				E2D6FC362763508E00E2DD9B /* SettingViewController.swift */,
+				E2AD9482277734F4009B8545 /* ColorRGB.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2D6FC372763508E00E2DD9B /* SettingViewController.swift in Sources */,
+				E2AD9483277734F4009B8545 /* ColorRGB.swift in Sources */,
 				E2D97754277625D100B9381F /* StartViewController.swift in Sources */,
 				E2D6FC332763508E00E2DD9B /* AppDelegate.swift in Sources */,
 				E2D6FC352763508E00E2DD9B /* SceneDelegate.swift in Sources */,

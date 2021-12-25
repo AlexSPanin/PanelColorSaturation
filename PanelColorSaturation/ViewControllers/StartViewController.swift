@@ -8,47 +8,41 @@
 import UIKit
 
 protocol SettingViewControllerDelegate {
-    func setValueColorBackground(red: Float, green: Float, blue: Float)
+    func setValueColorBackground(for color: ColorRGB)
 }
 
 class StartViewController: UIViewController {
     
-    var redColor: Float = 1
-    var greenColor: Float = 1
-    var blueColor: Float = 1
+    private var rgbColor = ColorRGB(red: 1, green: 1, blue: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
- //       setColorBackground()
-        
+        setColorBackground()
     }
+    
     // MARK: - Segue navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let settingVC = segue.destination as? SettingViewController else { return }
-        settingVC.red = redColor
-        settingVC.green = greenColor
-        settingVC.blue = blueColor
+        settingVC.rgbColor = rgbColor
         settingVC.delegate = self
     }
-   
+    
 }
 extension StartViewController {
     
     private func setColorBackground() {
         view.backgroundColor = UIColor(
-            red: CGFloat(redColor),
-            green: CGFloat(greenColor),
-            blue: CGFloat(blueColor),
+            red: CGFloat(rgbColor.red),
+            green: CGFloat(rgbColor.green),
+            blue: CGFloat(rgbColor.blue),
             alpha: 1.0)
     }
 }
 
 extension StartViewController: SettingViewControllerDelegate {
-    func setValueColorBackground(red: Float, green: Float, blue: Float) {
-        redColor = red
-        greenColor = green
-        blueColor = blue
+    
+    func setValueColorBackground(for color: ColorRGB) {
+        rgbColor = color
         setColorBackground()
     }
-    
 }

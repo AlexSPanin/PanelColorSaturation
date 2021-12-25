@@ -23,30 +23,27 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var greenTextField: UITextField!
     @IBOutlet weak var blueTextField: UITextField!
     
-    var red: Float!
-    var green: Float!
-    var blue: Float!
-    
+    var rgbColor: ColorRGB!
     var delegate: SettingViewControllerDelegate!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         panelColorView.layer.cornerRadius = 15
-        setValueSlider(red: red, green: green, blue: blue)
-        drawColor()
+        
+        addDoneTextFields(for: redTextField, greenTextField, blueTextField)
+        
+        setValueSlider(for: rgbColor)
         printValueSlider(for: colorRedSlider, colorGreenSlider, colorBlueSlider)
     }
     
     @IBAction func rgbSlider(_ sender: UISlider) {
-        drawColor()
         printValueSlider(for: sender)
     }
     
     @IBAction func doneButton(_ sender: UIButton) {
         view.endEditing(true)
         dismiss(animated: true)
-        delegate.setValueColorBackground(red: red, green: green, blue: blue)
+        delegate.setValueColorBackground(for: rgbColor)
     }
 }
 
@@ -59,29 +56,31 @@ extension SettingViewController {
     }
     
     // MARK - func setting value slider
-    private func setValueSlider(red: Float?, green: Float?, blue: Float?) {
-        colorRedSlider.setValue(red ?? 0, animated: true)
-        colorGreenSlider.setValue(green ?? 0, animated: true)
-        colorBlueSlider.setValue(blue ?? 0, animated: true)
+    private func setValueSlider(for value: ColorRGB) {
+        colorRedSlider.setValue(value.red, animated: true)
+        colorGreenSlider.setValue(value.green, animated: true)
+        colorBlueSlider.setValue(value.blue, animated: true)
     }
     
     // MARK - func print and setting value sliders for textFields,labels and var (red, green, blue)
     private func printValueSlider(for sliders: UISlider...) {
+        
         sliders.forEach { slider in
             switch slider {
             case colorRedSlider:
                 redLabel.text = stringValue(for: slider)
                 redTextField.text = stringValue(for: slider)
-                red = slider.value
+                rgbColor.red = slider.value
             case colorGreenSlider:
                 greenLabel.text = stringValue(for: slider)
                 greenTextField.text = stringValue(for: slider)
-                green = slider.value
+                rgbColor.green = slider.value
             default:
                 blueLabel.text = stringValue(for: slider)
                 blueTextField.text = stringValue(for: slider)
-                blue = slider.value
+                rgbColor.blue = slider.value
             }
+            drawColor()
         }
     }
     
@@ -118,10 +117,8 @@ extension SettingViewController: UITextFieldDelegate {
         
         switch textField {
         case redTextField:
-            redTextField.resignFirstResponder()
             greenTextField.becomeFirstResponder()
         case greenTextField:
-            greenTextField.resignFirstResponder()
             blueTextField.becomeFirstResponder()
         default:
             blueTextField.resignFirstResponder()
@@ -132,9 +129,11 @@ extension SettingViewController: UITextFieldDelegate {
     // MARK - func textFieldDidEndEditing
     func textFieldDidEndEditing(_ textField: UITextField) {
         guard let newValue = textField.text else { return }
-        
-        if let value = Float(newValue) {
-            
+        guard let value = Float(newValue) else {
+            showAlert(title: "Attention!!!", message: "Enter a Number: from 0.00 to 1.00", field: textField)
+            return
+        }
+        if value >= 0 && value <= 1 {
             switch textField {
             case redTextField:
                 colorRedSlider.setValue(value, animated: true)
@@ -144,18 +143,34 @@ extension SettingViewController: UITextFieldDelegate {
                 colorBlueSlider.setValue(value, animated: true)
             }
         } else {
-            showAlert(title: "Attention!!!", message: "Enter a Number: from 0.00 to 1.00", field: textField)
+            showAlert(title: "Attention!!!",
+                      message: "Enter a Number: from 0.00 to 1.00",
+                      field: textField)
         }
         
-        drawColor()
         printValueSlider(for: colorRedSlider, colorGreenSlider, colorBlueSlider)
-        
-//        view.endEditing(true)
-//        dismiss(animated: true)
-//        delegate.setValueColorBackground(red: red, green: green, blue: blue)
+    }
+    
+    // MARK - add DONE for TexFields
+    func addDoneTextFields(for textFields: UITextField...) {
+        textFields.forEach { textField in
+            textField.addDoneButtonOnKeyBoardWithControl()
+        }
     }
 }
 
-
-
-
+// MARK - keyboad add DONE and Action resignFirstResponder
+extension UITextField {
+    
+    func addDoneButtonOnKeyBoardWithControl() {
+        let keyboardToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
+        let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+        let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.resignFirstResponder))
+        
+        keyboardToolbar.items = [flexBarButton, doneBarButton]
+        keyboardToolbar.sizeToFit()
+        keyboardToolbar.barStyle = .default
+        
+        self.inputAccessoryView = keyboardToolbar
+    }
+}

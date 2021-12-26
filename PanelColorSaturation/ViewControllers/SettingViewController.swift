@@ -23,7 +23,7 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var greenTextField: UITextField!
     @IBOutlet weak var blueTextField: UITextField!
     
-    var rgbColor: ColorRGB!
+    var rgbColor: UIColor!
     var delegate: SettingViewControllerDelegate!
     
     override func viewDidLoad() {
@@ -56,10 +56,11 @@ extension SettingViewController {
     }
     
     // MARK - func setting value slider
-    private func setValueSlider(for value: ColorRGB) {
-        colorRedSlider.setValue(value.red, animated: true)
-        colorGreenSlider.setValue(value.green, animated: true)
-        colorBlueSlider.setValue(value.blue, animated: true)
+    private func setValueSlider(for value: UIColor) {
+        let ciColor = CIColor(color: value )
+        colorRedSlider.value = Float(ciColor.red)
+        colorGreenSlider.value = Float(ciColor.green)
+        colorBlueSlider.value = Float(ciColor.blue)
     }
     
     // MARK - func print and setting value sliders for textFields,labels and var (red, green, blue)
@@ -70,17 +71,15 @@ extension SettingViewController {
             case colorRedSlider:
                 redLabel.text = stringValue(for: slider)
                 redTextField.text = stringValue(for: slider)
-                rgbColor.red = slider.value
             case colorGreenSlider:
                 greenLabel.text = stringValue(for: slider)
                 greenTextField.text = stringValue(for: slider)
-                rgbColor.green = slider.value
             default:
                 blueLabel.text = stringValue(for: slider)
                 blueTextField.text = stringValue(for: slider)
-                rgbColor.blue = slider.value
             }
             drawColor()
+            rgbColor = panelColorView.backgroundColor
         }
     }
     
@@ -163,7 +162,7 @@ extension SettingViewController: UITextFieldDelegate {
 extension UITextField {
     
     func addDoneButtonOnKeyBoardWithControl() {
-        let keyboardToolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 44))
+        let keyboardToolbar = UIToolbar()
         let flexBarButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let doneBarButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(self.resignFirstResponder))
         
@@ -171,6 +170,6 @@ extension UITextField {
         keyboardToolbar.sizeToFit()
         keyboardToolbar.barStyle = .default
         
-        self.inputAccessoryView = keyboardToolbar
+       inputAccessoryView = keyboardToolbar
     }
 }
